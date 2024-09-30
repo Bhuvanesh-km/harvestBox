@@ -7,12 +7,15 @@ import {
   NativeSyntheticEvent,
   TextInputChangeEventData,
 } from "react-native";
+import {  getToken } from "@/lib/appwrite";
 import { images } from "@/constants";
 import CustomInput from "@/components/ui/CustomInput";
 import CustomButton from "@/components/ui/CustomButton";
 import { router } from "expo-router";
+import { useAuth } from "@/context/authContext";
 
 const Login = () => {
+  const { updateUserId } = useAuth();
   const [phoneNumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -20,6 +23,23 @@ const Login = () => {
     e: NativeSyntheticEvent<TextInputChangeEventData>
   ) => {
     setPhoneNumber(e.nativeEvent.text.slice(0, 10));
+  };
+
+  const handelLoginPress = async () => {
+    console.log("initiated");
+    try {
+      setLoading(true);
+      const userId = await getToken(phoneNumber);
+      if (!userId) {
+        throw new Error("Failed to get userId");
+      }
+      updateUserId(userId);
+      router.replace("/(auth)/validateOtp");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -58,9 +78,7 @@ const Login = () => {
           <CustomButton
             title="Continue"
             loading={loading}
-            onPress={() => {
-              router.replace("/(auth)/validateOtp");
-            }}
+            onPress={handelLoginPress}
             disabled={phoneNumber.length !== 10}
           />
         </View>

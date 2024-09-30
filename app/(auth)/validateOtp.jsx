@@ -1,10 +1,21 @@
 import React, { useState, useRef } from "react";
-import { View, Text, TextInput, StyleSheet, Alert } from "react-native";
+import { View, Text, TextInput, StyleSheet } from "react-native";
 import CustomButton from "../../components/ui/CustomButton";
+import { authenticateOtp } from "@/lib/appwrite";
+import { useAuth } from "@/context/authContext";
+import { Router, router } from "expo-router";
 
-const OTPValidation = () => {
-  const [otp, setOtp] = useState(["", "", "", ""]);
-  const otpInputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+const ValidateOtp = () => {
+  const { userId } = useAuth();
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const otpInputRefs = [
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+  ];
 
   const handleOtpChange = (text, index) => {
     let newOtp = [...otp];
@@ -18,13 +29,16 @@ const OTPValidation = () => {
 
   const validateOtp = () => {
     const enteredOtp = otp.join("");
-    const validOtp = "1234";
-
-    if (enteredOtp === validOtp) {
-      Alert.alert("Success", "OTP is valid");
-    } else {
-      Alert.alert("Error", "Invalid OTP");
+    console.log("====================================");
+    console.log("Entered OTP: ", enteredOtp);
+    console.log("====================================");
+    const session = authenticateOtp(userId, enteredOtp);
+    if (session) {
+      console.log("====================================");
+      console.log("OTP validated successfully");
+      console.log("====================================");
     }
+    router.replace("/(root)/home");
   };
 
   return (
@@ -39,7 +53,7 @@ const OTPValidation = () => {
             onChangeText={(text) => handleOtpChange(text, index)}
             keyboardType="numeric"
             maxLength={1}
-            ref={otpInputRefs[index]} 
+            ref={otpInputRefs[index]}
             onKeyPress={({ nativeEvent }) => {
               if (nativeEvent.key === "Backspace" && index > 0 && !otp[index]) {
                 otpInputRefs[index - 1].current.focus();
@@ -83,4 +97,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OTPValidation;
+export default ValidateOtp;

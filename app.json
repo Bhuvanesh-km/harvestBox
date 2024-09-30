@@ -13,13 +13,15 @@
       "backgroundColor": "#213387"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifer":"com.eta.harvestBox"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "bundleIdentifer":"com.eta.harvestBox"
     },
     "web": {
       "bundler": "metro",
