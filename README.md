@@ -1,50 +1,118 @@
-# Welcome to your Expo app 👋
+<p align="center">
+  <img src="https://img.icons8.com/?size=512&id=55494&format=png" width="20%" alt="HARVESTBOX-logo">
+</p>
+<p align="center">
+    <h1 align="center">HARVESTBOX</h1>
+</p>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<p align="center">
+	<img src="https://img.shields.io/github/license/Bhuvanesh-km/harvestBox?style=flat&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
+	<img src="https://img.shields.io/github/last-commit/Bhuvanesh-km/harvestBox?style=flat&logo=git&logoColor=white&color=0080ff" alt="last-commit">
+	<img src="https://img.shields.io/github/languages/top/Bhuvanesh-km/harvestBox?style=flat&color=0080ff" alt="repo-top-language">
+	<img src="https://img.shields.io/github/languages/count/Bhuvanesh-km/harvestBox?style=flat&color=0080ff" alt="repo-language-count">
+</p>
+<p align="center">
+		<em>Built with the tools and technologies:</em>
+</p>
+<p align="center">
+	<img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat&logo=JavaScript&logoColor=black" alt="JavaScript">
+	<img src="https://img.shields.io/badge/Prettier-F7B93E.svg?style=flat&logo=Prettier&logoColor=black" alt="Prettier">
+	<img src="https://img.shields.io/badge/Jest-C21325.svg?style=flat&logo=Jest&logoColor=white" alt="Jest">
+	<img src="https://img.shields.io/badge/React-61DAFB.svg?style=flat&logo=React&logoColor=black" alt="React">
+	<img src="https://img.shields.io/badge/ESLint-4B32C3.svg?style=flat&logo=ESLint&logoColor=white" alt="ESLint">
+	<img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=flat&logo=TypeScript&logoColor=white" alt="TypeScript">
+	<img src="https://img.shields.io/badge/Expo-000020.svg?style=flat&logo=Expo&logoColor=white" alt="Expo">
+	<img src="https://img.shields.io/badge/JSON-000000.svg?style=flat&logo=JSON&logoColor=white" alt="JSON">
+</p>
 
-## Get started
+<br>
+---
 
-1. Install dependencies
+##  Overview
 
-   ```bash
-   npm install
-   ```
+<code>overview</code>
 
-2. Start the app
+---
 
-   ```bash
-    npx expo start
-   ```
+##  Features
 
-In the output, you'll find options to open the app in a
+<code>Features</code>
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
+##  Repository Structure
 
-When you're ready, run:
-
-```bash
-npm run reset-project
+```sh
+└── harvestBox/
+    ├── README.md
+    ├── app
+    │   ├── (auth)
+    │   ├── (root)
+    │   ├── +html.tsx
+    │   ├── +not-found.tsx
+    │   ├── _layout.tsx
+    │   └── index.tsx
+    ├── app.json
+    ├── assets
+    │   ├── fonts
+    │   ├── icons
+    │   └── images
+    ├── babel.config.js
+    ├── components
+    │   └── ui
+    ├── constants
+    │   └── index.ts
+    ├── context
+    │   └── authContext.tsx
+    ├── lib
+    │   └── appwrite.ts
+    ├── **nativewind-env.d.ts**
+    ├── nativewind-env.d.ts
+    ├── package-lock.json
+    ├── package.json
+    ├── scripts
+    │   └── reset-project.js
+    ├── tailwind.config.js
+    └── tsconfig.json
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+##  Getting Started
 
-## Learn more
+###  Prerequisites
 
-To learn more about developing your project with Expo, look at the following resources:
+**Node**: LTS
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+###  Installation
 
-## Join the community
+Build the project from source:
 
-Join our community of developers creating universal apps.
+1. Clone the harvestBox repository:
+```sh
+git clone https://github.com/Bhuvanesh-km/harvestBox
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+2. Navigate to the project directory:
+```sh
+cd harvestBox
+```
+
+3. create a file named expo-env.d.ts in root directory and add the following code to it:
+```sh
+/// <reference types="expo/types" />
+```
+
+4. Install the required dependencies:
+```sh
+npm install
+```
+
+4. Start the app
+```bash
+npx expo start
+```
+5. Set up an android/ios device with expo go.
+<code>download expo go app from app/play store</code>
+
+6. <code>Open app on your device and scan qr code.</code>
+
