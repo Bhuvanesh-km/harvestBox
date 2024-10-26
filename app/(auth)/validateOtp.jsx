@@ -1,12 +1,15 @@
-import React, { useState, useRef } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import CustomButton from "../../components/ui/CustomButton";
 import { authenticateOtp } from "@/lib/appwrite";
+import { router } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useAuth } from "@/context/authContext";
-import { Router, router } from "expo-router";
 
 const ValidateOtp = () => {
-  const { userId } = useAuth();
+  const [timer, setTimer] = useState(5);
+  const { signIn } = useAuth();
+  const { userId, phoneNumber } = useLocalSearchParams("phoneNumber, userId");
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const otpInputRefs = [
     useRef(null),
@@ -17,38 +20,56 @@ const ValidateOtp = () => {
     useRef(null),
   ];
 
+  useEffect(() => {
+    if (timer === 0) return;
+    const interval = setInterval(() => {
+      setTimer((prev) => prev - 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [timer]);
+
   const handleOtpChange = (text, index) => {
     let newOtp = [...otp];
     newOtp[index] = text;
     setOtp(newOtp);
-
     if (text.length === 1 && index < otpInputRefs.length - 1) {
       otpInputRefs[index + 1].current.focus();
     }
   };
 
-  const validateOtp = () => {
-    const enteredOtp = otp.join("");
-    console.log("====================================");
-    console.log("Entered OTP: ", enteredOtp);
-    console.log("====================================");
-    const session = authenticateOtp(userId, enteredOtp);
-    if (session) {
-      console.log("====================================");
-      console.log("OTP validated successfully");
-      console.log("====================================");
+  const validateOtp = async () => {
+    try {
+      const enteredOtp = otp.join("");
+      const sessionId = await authenticateOtp(userId, enteredOtp);
+      if (typeof sessionId !== "string") {
+        throw new Error("Invalid Session String");
+      }
+      signIn(sessionId);
+      router.replace("/(root)/home");
+    } catch (err) {
+      console.error(err);
     }
-    router.replace("/(root)/home");
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Enter OTP</Text>
-      <View style={styles.otpContainer}>
+    <View className="flex-1 items-center justify-center">
+      <View className="mb-10">
+        <Text className="font-JakartaBold pb-4 text-4xl ">
+          Verifying Your Number
+        </Text>
+        <Text className="font-JakartaRegular text-base">
+          Enter the OTP sent to your number
+        </Text>
+        <Text className="font-JakartaRegular text-base mb-5">
+          +91 {phoneNumber}
+        </Text>
+      </View>
+      <Text className="font-JakartaMedium text-lg mb-5">Enter OTP</Text>
+      <View className="flex-row justify-between mb-5">
         {otp.map((digit, index) => (
           <TextInput
             key={index}
-            style={styles.otpInput}
+            className="border-b-2 border-gray-400 w-10 text-xl mr-2 text-center"
             value={digit}
             onChangeText={(text) => handleOtpChange(text, index)}
             keyboardType="numeric"
@@ -63,38 +84,24 @@ const ValidateOtp = () => {
         ))}
       </View>
       <CustomButton
-        title="Validate OTP"
+        title="verify"
         onPress={validateOtp}
         disabled={otp.some((digit) => digit === "")}
-        otherStyles="w-3/4 mx-4"
+        otherStyles="w-3/4 mx-auto"
       />
+      <View className="mt-5 flex-row justify-around w-full">
+        {timer === 0 ? (
+          <TouchableOpacity onPress={() => setTimer(3)}>
+            <Text className="font-JakartaRegular text-base">Resend OTP</Text>
+          </TouchableOpacity>
+        ) : (
+          <Text className="font-JakartaRegular text-base">
+            {`Resend OTP in ${timer} seconds`}
+          </Text>
+        )}
+      </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  label: {
-    fontSize: 18,
-    marginBottom: 20,
-  },
-  otpContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 20,
-  },
-  otpInput: {
-    borderBottomWidth: 2,
-    borderColor: "gray",
-    width: 40,
-    fontSize: 20,
-    textAlign: "center",
-    marginRight: 10,
-  },
-});
 
 export default ValidateOtp;

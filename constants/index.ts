@@ -24,27 +24,21 @@ import star from "@/assets/icons/star.png";
 import target from "@/assets/icons/target.png";
 import to from "@/assets/icons/to.png";
 import check from "@/assets/images/check.png";
-import getStarted from "@/assets/images/get-started.png";
 import message from "@/assets/images/message.png";
 import noResult from "@/assets/images/no-result.png";
-import onboarding1 from "@/assets/images/onboarding1.png";
-import onboarding2 from "@/assets/images/onboarding2.png";
-import onboarding3 from "@/assets/images/onboarding3.png";
-import signUpCar from "@/assets/images/signup-car.png";
 import loginBgImage from "@/assets/images/loginBgImage.png";
 import harvestboxLogo from "@/assets/images/harvestbox-logo.png";
+import splashImage from "@/assets/images/splash-img.png";
+import bgImage from "@/assets/images/bg.png";
 
 export const images = {
-  onboarding1,
-  onboarding2,
-  onboarding3,
-  getStarted,
-  signUpCar,
   check,
   noResult,
   message,
   loginBgImage,
   harvestboxLogo,
+  splashImage,
+  bgImage,
 };
 
 export const icons = {

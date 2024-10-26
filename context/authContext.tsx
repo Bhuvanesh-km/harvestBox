@@ -1,30 +1,52 @@
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
+import * as SecureStore from "expo-secure-store";
+import { router } from "expo-router";
 
 type AuthContextType = {
-  userId: string | null;
-  updateUserId: (newUserId: string) => void;
+  signIn: (sessionId: string) => void;
+  signOut: () => void;
   isAuthenticated: boolean;
 };
 
 const AuthContext = createContext<AuthContextType>({
-  userId: null,
-  updateUserId: () => {},
+  signIn: () => {},
+  signOut: () => {},
   isAuthenticated: false,
 });
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [userId, setUserId] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const loadAuthState = async () => {
+    const session = await SecureStore.getItemAsync("session");
+    if (session) {
+      setIsAuthenticated(true);
+    }
+  };
+  useEffect(() => {
+    loadAuthState();
+  }, []);
 
-  const updateUserId = (newUserId: string) => {
-    setUserId(newUserId);
+  const signIn = async (sessionId: string) => {
+    await SecureStore.setItemAsync("session", sessionId);
     setIsAuthenticated(true);
   };
 
+  const signOut = async () => {
+    await SecureStore.deleteItemAsync("session");
+    setIsAuthenticated(false);
+    router.replace({ pathname: "/(auth)/login" });
+  };
+
   return (
-    <AuthContext.Provider value={{ userId, updateUserId, isAuthenticated }}>
+    <AuthContext.Provider value={{ signIn, signOut, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );

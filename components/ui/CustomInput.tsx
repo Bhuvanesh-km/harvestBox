@@ -16,8 +16,8 @@ const CustomInput: React.FC<
       {left && <View className="mr-2">{left}</View>}
       <TextInput
         {...props}
-        className="flex-1 font-JakartaBold text-base tracking-[1.5px] text-gray-800"
-        placeholderTextColor="gray"
+        className="flex-1 font-JakartaBold text-base tracking-[1.5px] text-gray-100"
+        placeholderTextColor="white"
       />
       <View className="mr-2">
         {props.value?.length != 0 && right && (

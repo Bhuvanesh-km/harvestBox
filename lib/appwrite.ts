@@ -1,4 +1,4 @@
-import { Client, Account, ID } from "react-native-appwrite";
+import { Client, Account, ID, Databases } from "react-native-appwrite";
 
 export const config = {
   endpoint: "https://cloud.appwrite.io/v1",
@@ -16,18 +16,15 @@ client
   .setPlatform(config.platform);
 
 const account: Account = new Account(client);
-
-//  const token = await account.createPhoneToken(
-//     ID.unique(),
-//     '+917899765925'
-//  )
-
-// const userId = token.userId;
+const database: Databases  = new Databases(client);
 
 export const getToken = async (phoneNumber: string) => {
   const phNumber = `+91${phoneNumber}`;
   try {
-    await clearSession();
+    const session=await getSession();
+    if(session){
+      await clearSession();
+    }
     const token = await account.createPhoneToken(ID.unique(), phNumber);
     if (!token) {
       throw new Error("Token not created");
@@ -43,12 +40,13 @@ export const getToken = async (phoneNumber: string) => {
 export const authenticateOtp = async (userId: string, secret: string) => {
   try {
     const session = await account.createSession(userId, secret);
-    console.log("session created");
+    console.log(session);
     if (!session) {
       throw new Error("Session not created");
     }
-    return session;
-    //use session & create user in database
+    //convert to string using json encoding
+    const sessionId = JSON.stringify(session.$id);
+    return sessionId;
   } catch (error) {
     console.error(error);
   }
@@ -62,3 +60,12 @@ export const clearSession = async () => {
     console.error(error);
   }
 };
+
+export const getSession = async () => {
+  try {
+    const session = await account.get();
+    return session;
+  } catch (error) {
+    console.error(error);
+  }
+}

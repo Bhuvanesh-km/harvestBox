@@ -25,11 +25,11 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       } ${otherStyles}`}
     >
       {loading ? (
-        <Text className="text-white font-JakartaMedium text-xl tracking-[1.5px] text-center">
+        <Text className={`text-white font-JakartaMedium text-xl tracking-[1.5px] text-center ${otherStyles}`}>
           Loading...
         </Text>
       ) : (
-        <Text className="text-white font-JakartaExtraBold text-xl tracking-[1.5px] text-center">
+        <Text className={`text-white font-JakartaMedium text-xl tracking-[1.5px] text-center ${otherStyles}`}>
           {title}
         </Text>
       )}
