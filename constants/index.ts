@@ -30,6 +30,9 @@ import loginBgImage from "@/assets/images/loginBgImage.png";
 import harvestboxLogo from "@/assets/images/harvestbox-logo.png";
 import splashImage from "@/assets/images/splash-img.png";
 import bgImage from "@/assets/images/bg.png";
+import FVlogo from "@/assets/images/FV-Logo.png";
+import homeScreen_bg from "@/assets/images/homeScreen_bg.png";
+import homeScreen_logo from "@/assets/images/homeScreen_logo.png";
 
 export const images = {
   check,
@@ -39,6 +42,9 @@ export const images = {
   harvestboxLogo,
   splashImage,
   bgImage,
+  FVlogo,
+  homeScreen_bg,
+  homeScreen_logo,
 };
 
 export const icons = {

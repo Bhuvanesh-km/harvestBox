@@ -7,7 +7,7 @@ import { useLocalSearchParams } from "expo-router";
 import { useAuth } from "@/context/authContext";
 
 const ValidateOtp = () => {
-  const [timer, setTimer] = useState(5);
+  const [timer, setTimer] = useState(30);
   const { signIn } = useAuth();
   const { userId, phoneNumber } = useLocalSearchParams("phoneNumber, userId");
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
@@ -91,7 +91,7 @@ const ValidateOtp = () => {
       />
       <View className="mt-5 flex-row justify-around w-full">
         {timer === 0 ? (
-          <TouchableOpacity onPress={() => setTimer(3)}>
+          <TouchableOpacity onPress={() => setTimer(30)}>
             <Text className="font-JakartaRegular text-base">Resend OTP</Text>
           </TouchableOpacity>
         ) : (
