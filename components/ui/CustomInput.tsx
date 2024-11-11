@@ -6,18 +6,22 @@ interface CustomInputProps {
   left?: React.ReactNode;
   right?: boolean;
   onClear?: () => void;
+  otherStyles?: string;
+  textStyles?: string;
 }
 
 const CustomInput: React.FC<
   CustomInputProps & React.ComponentProps<typeof TextInput>
-> = ({ left, right = true, onClear, ...props }) => {
+> = ({ left, right = true, onClear, otherStyles, textStyles, ...props }) => {
   return (
-    <View className="flex flex-row justify-center items-center border border-gray-200 rounded-lg py-3 px-2">
+    <View
+      className={`flex flex-row justify-center items-center border border-gray-200 rounded-lg py-3 px-2 ${otherStyles}`}
+    >
       {left && <View className="mr-2">{left}</View>}
       <TextInput
-        {...props}
-        className="flex-1 font-JakartaBold text-base tracking-[1.5px] text-gray-100"
+        className={`flex-1 font-JakartaBold text-base tracking-[1.5px] text-gray-100 ${textStyles}`}
         placeholderTextColor="white"
+        {...props}
       />
       <View className="mr-2">
         {props.value?.length != 0 && right && (

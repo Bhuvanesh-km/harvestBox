@@ -19,6 +19,28 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="browse"
+        options={{
+          title: "Browse",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome size={24} name="search" color={color} />
+          ),
+          header: () => (
+            <SafeAreaView className="flex-row py-4 items-center px-1 border-b">
+              <AntDesign
+                onPress={() => router.back()}
+                name="left"
+                size={24}
+                color="black"
+              />
+              <Text className="text-gray-800 px-2 font-JakartaBold text-2xl">
+                Browse Products
+              </Text>
+            </SafeAreaView>
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="categories"
         options={{
           title: "Categories",
@@ -26,17 +48,14 @@ export default function TabLayout() {
             <Entypo name="grid" size={24} color={color} />
           ),
           header: () => (
-            <SafeAreaView className="py-2 gap-3 border-b">
-              <View className="flex flex-row items-center justify-between px-2">
-                <AntDesign
-                  onPress={() => router.back()}
-                  name="left"
-                  size={24}
-                  color="black"
-                />
-                <Entypo name="dots-three-horizontal" size={24} color="black" />
-              </View>
-              <Text className="text-gray-800 px-4 font-JakartaBold text-2xl">
+            <SafeAreaView className="flex-row py-4 items-center px-1 border-b">
+              <AntDesign
+                onPress={() => router.back()}
+                name="left"
+                size={24}
+                color="black"
+              />
+              <Text className="text-gray-800 px-2 font-JakartaBold text-2xl">
                 Categories
               </Text>
             </SafeAreaView>
